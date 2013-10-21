@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="sh_dynamixel_manager" pkg="dynamixel_controllers" type="controller_manager.py" required="true" output="screen">
+        <rosparam>
+            namespace: dxl_manager
+            serial_ports:
+                sh_yaw_pitch_port:
+                    port_name: "/dev/ttyUSB1"
+                    baud_rate: 57600
+                    min_motor_id: 21
+                    max_motor_id: 22
+                    update_rate: 20
+        </rosparam>
+    </node>
+
+    <!-- Load controller configuration to parameter server -->
+    <rosparam file="$(find tedusar_sensor_head)/config/dynamixel_sensor_head_controler.yaml" command="load"/>
+
+    <!-- start specified joint controllers -->
+    <node name="sh_dynamixel_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --port=sh_yaw_pitch_port
+                --type=simple
+                sh_yaw_controller
+                sh_pitch_controller"
+          output="screen">
+    </node>
+
+
+    <node name="sh_joint_state_publisher" pkg="tedusar_sensor_head" type="sh_joint_state_publisher">
+        <remap from="servo_yaw_state" to="/sh_yaw_controller/state"/>
+        <remap from="servo_pitch_state" to="/sh_pitch_controller/state"/>
+
+        <param name="yaw_joint_name" value="sh_yaw_joint" />
+        <param name="pitch_joint_name" value="sh_pitch_joint" />
+        <param name="frequency" value="20.0" />
+    </node>
+
+    <!--Init position of sensor head -->
+    <node pkg="rostopic" type="rostopic" name="sh_tilt_pub" args= "pub -1 /sh_yaw_controller/command std_msgs/Float64 -- 0.0" >
+    </node>
+    <node pkg="rostopic" type="rostopic" name="sh_pan_pub" args= "pub -1 /sh_pitch_controller/command std_msgs/Float64 -- 0.0" >
+    </node>
+
+    <!-- Thermal Camera -->
+    <node pkg="gscam" type="gscam" name="gscam" respawn="true" output="screen" cwd="node" >
+        <env name="GSCAM_CONFIG" value="v4l2src device=/dev/video0 ! video/x-raw-rgb,width=320,height=240 ! videocrop top=0 left=32 right=0 bottom=0 ! ffmpegcolorspace" />
+    </node>
+
+    <!-- Kinect Sensor -->
+    <include file="$(find openni_launch)/launch/openni.launch"/>
+
+</launch>

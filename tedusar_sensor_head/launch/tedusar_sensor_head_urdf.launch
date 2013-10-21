@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find tedusar_sensor_head)/launch/tedusar_sensor_head.launch" />
+
+    <param name="robot_description" textfile="$(find tedusar_sensor_head)/urdf/tedusar_sensor_head.urdf" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" >
+        <param name="publish_frequency" value="20"/>
+    </node>
+    
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+	<param name="use_gui" value="false" />
+        <rosparam param="source_list">[sh_joint_state]</rosparam>
+    </node>	
+
+</launch>

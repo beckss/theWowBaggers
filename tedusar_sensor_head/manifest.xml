@@ -1,0 +1,19 @@
+<package>
+  <description brief="tedusar_sensor_head">
+
+     tedusar_sensor_head
+
+  </description>
+  <author>peter</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/tedusar_sensor_head</url>
+  <depend package="tf"/>
+  <depend package="dynamixel_driver"/>
+  <depend package="urdf"/>
+  <depend package="roscpp"/>
+  <depend package="dynamixel_msgs"/>
+
+</package>
+
+

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+
+    <!-- Thermal Camera -->
+    <node pkg="gscam" type="gscam" name="gscam" respawn="true" output="screen" cwd="node" >
+        <env name="GSCAM_CONFIG" value="v4l2src device=/dev/video0 ! video/x-raw-rgb,width=320,height=240 ! videocrop top=0 left=32 right=0 bottom=0  ! ffmpegcolorspace" />
+    </node>
+
+    <!-- Kinect Sensor -->
+    <include file="$(find openni_launch)/launch/openni.launch"/>
+
+</launch>
