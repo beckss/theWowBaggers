@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="tedusar_wowbagger">
+
+<!--Element Base -->
+<include filename="$(find tedusar_mesa_element)/urdf/mesa_element.urdf.xacro" />
+
+<!--Laser Alignment -->
+<include filename="$(find tedusar_laser_alignment)/urdf/tedusar_laser_alignment.urdf" />
+
+<joint name="base_to_laser_alignment" type="fixed">
+        <parent link="base_link" />
+        <child link="la_base_link" />
+        <origin xyz="0.30 0 0.19" rpy="0 0 0" />
+</joint>
+
+<!--Sensor Head -->
+<include filename="$(find tedusar_sensor_head)/urdf/tedusar_sensor_head.urdf" />
+<joint name="base_to_sensor_head" type="fixed">
+        <parent link="base_link" />
+        <child link="sh_base_link" />
+        <origin xyz="0.18 0 0.20" rpy="0 0 0" />
+</joint>
+    
+
+</robot>

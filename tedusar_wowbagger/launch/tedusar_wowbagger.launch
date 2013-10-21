@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+<include file="$(find tedusar_mesa_element)/launch/tedusar_mesa_element.launch" />
+<include file="$(find tedusar_laser_alignment)/launch/tedusar_laser_alignment.launch" />
+<include file="$(find tedusar_sensor_head)/launch/tedusar_sensor_head.launch" />
+
+    <param name="robot_description" command="$(find xacro)/xacro.py $(find tedusar_wowbagger)/urdf/tedusar_wowbagger.urdf.xacro" />
+
+    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" >
+        <param name="tf_prefix" type="string" value="" />
+    </node>
+
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+                <param name="use_gui" value="false" />
+                <rosparam param="source_list">[la_joint_state, sh_joint_state]</rosparam>
+        </node>
+
+</launch>
+

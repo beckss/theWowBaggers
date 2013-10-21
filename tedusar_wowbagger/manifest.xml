@@ -1,0 +1,17 @@
+<package>
+  <description brief="tedusar_wowbagger">
+
+     tedusar_wowbagger
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/tedusar_wowbagger</url>
+  <depend package="tedusar_laser_alignment"/>
+  <depend package="tedusar_sensor_head"/>
+  <depend package="tedusar_mesa_element"/>
+
+</package>
+
+
