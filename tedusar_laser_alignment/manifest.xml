@@ -1,0 +1,19 @@
+<package>
+  <description brief="tedusar_laser_alignment">
+
+     tedusar_laser_alignment
+
+  </description>
+  <author>peter</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/tedusar_laser_alignment</url>
+  <depend package="tf"/>
+  <depend package="dynamixel_driver"/>
+  <depend package="urdf"/>
+  <depend package="roscpp"/>
+  <depend package="dynamixel_msgs"/>
+
+</package>
+
+

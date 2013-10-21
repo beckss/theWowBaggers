@@ -1,0 +1,18 @@
+<package>
+  <description brief="tedusar_mesa_element">
+
+     tedusar_mesa_element
+
+  </description>
+  <author>Johannes Maurer</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/tedusar_mesa_element</url>
+  <depend package="geometry_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <rosdep name="boost" />
+</package>
+
+

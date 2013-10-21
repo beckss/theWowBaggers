@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="tedusar_mesa_element" type="mesa_element_node" name="mesa_element_node" respawn="false" output="screen">
+        <param name="port"                 type="string"  value="/dev/ttyS0"/>
+        <param name="baud_rate"            type="int"     value="38400"/>
+        <param name="publish_tf"           type="bool"    value="true"/>
+        <param name="max_trans_velocity"   type="double"  value="0.8"/>
+        <param name="max_rot_velocity"     type="double"  value="1.570796"/>
+        <param name="wheel_base"           type="double"  value="0.47"/>
+        <param name="velocity_raw_factor"  type="double"  value="300.0"/>
+        <param name="raw_odometry_factor"  type="double"  value="0.0000016129"/>
+        <param name="frame_id"             type="string"  value="/odom"/>
+        <param name="child_frame_id"       type="string"  value="/robot_footprint"/>
+    </node>
+</launch> 

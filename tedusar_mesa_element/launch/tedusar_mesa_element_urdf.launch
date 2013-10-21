@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find tedusar_mesa_element)/urdf/mesa_element.urdf.xacro'" />
+    
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" >
+        <param name="publish_frequency" value="20"/>
+    </node>
+</launch> 
