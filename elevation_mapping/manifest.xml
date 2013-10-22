@@ -1,0 +1,20 @@
+<package>
+  <description brief="elevation_mapping">
+
+     elevation_mapping
+
+  </description>
+  <author>Johannes Maurer</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/elevation_mapping</url>
+  <depend package="octomap_msgs"/>
+  <depend package="image_transport"/>
+  <depend package="roscpp"/>
+  <depend package="cv_bridge"/>
+  <depend package="octomap"/>
+  <depend package="sensor_msgs"/>
+
+</package>
+
+
