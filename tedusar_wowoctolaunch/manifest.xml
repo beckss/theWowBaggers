@@ -1,0 +1,14 @@
+<package>
+  <description brief="wowoctolaunch">
+
+     wowoctolaunch
+
+  </description>
+  <author>Martin</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/wowoctolaunch</url>
+
+</package>
+
+
