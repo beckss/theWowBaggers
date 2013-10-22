@@ -1,0 +1,16 @@
+<package>
+  <description brief="control_node2">
+
+     control_node2
+
+  </description>
+  <author>new-robocup-ros1</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/control_node2</url>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+
+</package>
+
+
