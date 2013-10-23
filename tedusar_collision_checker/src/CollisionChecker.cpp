@@ -155,6 +155,9 @@ bool CollisionChecker::calculateSupport(double x, double y, double theta){
 			double x=(0.5+double(xi))*_resolution;
 			double y=(0.5+double(yi))*_resolution;
 
+			if(z==std::numeric_limits<float>::min())
+				continue;
+
 			// assemble homogeneous point and transform
 			sm::kinematics::HomogeneousPoint p_W(Eigen::Vector3d(x,y,z));
 			sm::kinematics::HomogeneousPoint p_B=_T_WB.inverse()*p_W;
@@ -168,6 +171,11 @@ bool CollisionChecker::calculateSupport(double x, double y, double theta){
 			if(l||r){
 				points.push_back(p_W.toEuclidean());
 				++i;
+
+				if(_dem.at<float>(_dem.rows-yi-1,xi+1)==std::numeric_limits<float>::min()) continue;
+				if(_dem.at<float>(_dem.rows-yi-1,xi-1)==std::numeric_limits<float>::min()) continue;
+				if(_dem.at<float>(_dem.rows-(yi+1)-1,xi)==std::numeric_limits<float>::min()) continue;
+				if(_dem.at<float>(_dem.rows-(yi-1)-1,xi)==std::numeric_limits<float>::min()) continue;
 
 				// check step
 				double step_x=_dem.at<float>(_dem.rows-yi-1,xi+1)-_dem.at<float>(_dem.rows-yi-1,xi-1);
@@ -196,7 +204,7 @@ bool CollisionChecker::calculateSupport(double x, double y, double theta){
 	if((normal.transpose()*Eigen::Vector3d(0.0,0.0,1.0))<cos(40.0/180*M_PI))
 		_collision=true; // hardcoded hack max 40° inclination
 
-	// place it z-wise such that it gets one support point: get the maximum z
+	/*/ place it z-wise such that it gets one support point: get the maximum z
 	sm::kinematics::HomogeneousPoint p_B_max;
 	double z_max=std::numeric_limits<float>::min();
 	for(double xi=center_x-min; xi<center_x+min; ++xi){
@@ -228,7 +236,7 @@ bool CollisionChecker::calculateSupport(double x, double y, double theta){
 		return false;
 	}
 
-	std::cout<<_T_WB.T()<<std::endl;
+	//std::cout<<_T_WB.T()<<std::endl;*/
 
 	// add the contact point
 

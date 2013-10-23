@@ -33,11 +33,9 @@ target_link_libraries(${PROJECT_NAME})
 #target_link_libraries(${PROJECT_NAME} another_library)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
-<<<<<<< HEAD
 rosbuild_add_executable(test1 src/test.cpp)
 target_link_libraries(test1 ${PROJECT_NAME})
-=======
+rosbuild_add_executable(demo_node src/node.cpp)
+target_link_libraries(demo_node ${PROJECT_NAME})
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
-
->>>>>>> b6a609ea49c4c2e742848d775f003369585569c5

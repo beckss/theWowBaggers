@@ -15,7 +15,7 @@ int main(){
 	cv::Mat dem;
 	const int M=1000;
 	const int N=1000;
-	dem.create(N,M,CV_32SC1);
+	dem.create(N,M,CV_32FC1);
 	double h=0.0;
 	for(int y=0; y<N; y++){
 		for(int x=0; x<M; x++){
