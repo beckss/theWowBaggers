@@ -7,3 +7,8 @@ bin/
 lib/
 msg_gen/
 srv_gen/
+qtcreator-build/
+*~
+*.autosave
+__init__.py
+*.user

@@ -42,7 +42,7 @@ public:
 
 protected:
 
-    void worldCoordToCellCoord(double x, double y, double map_origin_x, double map_origin_y, double map_res, int &raw, int &rol);
+    void worldCoordToCellCoord(double x, double y, double map_origin_x, double map_origin_y, double map_res, int &row, int &col);
 
 };
 
