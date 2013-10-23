@@ -8,6 +8,16 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/tedusar_collision_checker</url>
+    <depend package="opencv2"/>
+  <depend package="sm_eigen"/>
+  <depend package="sm_kinematics"/>
+  <rosdep name="eigen"/>
+  <rosdep name="suitesparse"/>
+  
+  <export>
+    <cpp cflags="`pkg-config --cflags eigen3` -I${prefix}/include"
+	 lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -ltedusar_collision_checker" />
+  </export>
 
 </package>
 

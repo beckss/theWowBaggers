@@ -1,4 +1,6 @@
 #include <tedusar/check_collision.hpp>
+#include <tedusar/CollisionChecker.hpp>
+
 
 namespace tedusar{
 
@@ -8,7 +10,7 @@ namespace tedusar{
 /// \parameter theta: yaw angle of the robot base w.r.t. world frame
 bool check_collision(double x, double y, double theta){
 	if(x*x+y*y<9) 
-	return true;
+		return true;
 	return false;
 }
 
