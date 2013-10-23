@@ -1,19 +1,51 @@
 #!/usr/bin/env python
 import roslib; roslib.load_manifest('control_node')
 import rospy
-from geometry_msgs.msg import Twist, Vector3
+from geometry_msgs.msg import Twist, Vector3, PoseWithCovariance
+from tf.transformations import euler_from_quaternion
+
+        
+def distance2(a, b):
+    return (a[0]-b[0])^2 + (a[1]-b[1])^2
+    
+def add(a, b):
+    return [a[0]+b[0], a[1]+b[1]]
+    
+def neg(a):
+    return [-a[0], -a[1]]
+    
+def normalize(a):
+    length = sqrt(a[0]^2+a[1]^2)
+    return [a[0]/length, a[1]/length]
 
 class talker(object):
     global posprint
     def __init__(self):
-        self.x  = 0
-        self.omega = 0
+        self.path  = [[0, 0], [0.2, 0], [0.4, -0.1], [0.6, 0]]
+        self.followDistance = 0.05
         self.command_map = {
-            'x'     : (self.cmd_x,   'set x velocity [m/s]'),
-            'stop'     : (self.cmd_stop,   'Stop!'),
-            'omega' : (self.cmd_omega,    'set angular velocity [rad/s]')}
+            's'     : (self.cmd_stop,   'Stop!')}
         self.publisher = rospy.Publisher('cmd_vel', Twist)
         rospy.init_node('ControlNode')
+        
+    def isPassed(self, currentPos, point, pointBack, pointFront):
+        vectorBack = normalize(poinBack - point)
+        vectorFront = normalize(pointFront - point)
+        distFront = distance2(add(point, vectorBack), currentPos)
+        distBack = distance2(add(point, vectorFront), currentPos)
+        if(distBack > distFront):
+            return False
+        else:
+            return True
+        
+    def control_angle(self, robotPose):
+        robotCoord = [robotPose.pose.position.x, robotPose.pose.position.y]
+        (roll, pitch, robotYaw) = euler_from_quaternion(robotPose.orientation)
+        #remove passed points
+        while len(self.path < 3) or self.isPassed(robotCoord, self.path[1], self.path[0], self.path[2]):
+            self.path.pop(0)
+        #now the first point in path is the one behind us, the second is the one ahead
+        
         
     def send_cmd_msg(self):
         msg = Twist()

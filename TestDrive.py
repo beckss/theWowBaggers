@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('control_node')
+import roslib; roslib.load_manifest('ControlNode')
 import rospy
-from geometry_msgs.msg import Twist, Vector3
+from geomerty_msgs.msg import Twist, Vector3
 
 class talker(object):
     global posprint
@@ -11,7 +11,7 @@ class talker(object):
         self.command_map = {
             'x'     : (self.cmd_x,   'set x velocity [m/s]'),
             'stop'     : (self.cmd_stop,   'Stop!'),
-            'omega' : (self.cmd_omega,    'set angular velocity [rad/s]')}
+            'omega' : (self.cmd_theta,    'set angular velocity [rad/s]')}
         self.publisher = rospy.Publisher('cmd_vel', Twist)
         rospy.init_node('ControlNode')
         

@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "Test1");
 	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscribe("/nav_msgs/Odometry/odom", 1000, callback);
+	ros::Subscriber sub = n.subscribe("odom", 1000, callback);
 	ros::spin();
 return 0;
 }
