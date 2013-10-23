@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+import roslib; roslib.load_manifest('kinect_pitch')
+import rospy
+from std_msgs.msg import String
+
+
+def IMUcallback(data):
+    # pulish here
+    rospy.loginfo(rospy.get_name() + ": I heard %f" % data.orientation.x)
+
+def listener():
+    rospy.init_node('kinect_pitch', anonymous=True)
+    rospy.Subscriber("/imu_data", sensor_msgs/Imu, IMUcallback)
+    rospy.spin()
+
+def talker():
+    pub = rospy.Publisher('chatter', String)
+    rospy.init_node('talker')
+    while not rospy.is_shutdown():
+        str = "hello world %s" % rospy.get_time()
+        rospy.loginfo(str)
+        pub.publish(String(str))
+        rospy.sleep(1.0)
+
+if __name__ == '__main__':
+    try:
+        listener()
+    except rospy.ROSInterruptException:
+        pass
+    
+    # try:
+    #     talker()
+    # except rospy.ROSInterruptException:
+    #     pass
+    
+
+
+# [q0,q1,q2,q3] = read from "/imu_data"
+# phi = np.arctan2( 2*(q0*q1 + q2*q3) , 1 - 2*(q1**2+q2**2)) # rotation around X-axis
+# theta = np.arcsin( 2* (q0*q2 - q3*q1) )                    # rotation around Y-axis
+# psi = np.arctan2( 2*(q0*q3 + q1*q2) , 1 - 2*(q2**2+q3**2)) # rotation around Z-axis
+# robot_pitch = theta
+# robot_roll  = phi
+
+# kinect_yaw = read from "/sh_yaw_controller/state"
+# kinect_pitch = robot_pitch * np.cos(kinect_yaw) + robot_roll * np.sin(kinect_yaw)
+
+# send kinect_pitch to "/sh_pitch_controller/command"
