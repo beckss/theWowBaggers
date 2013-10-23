@@ -7,9 +7,10 @@ from dynamixel_msgs.msg import JointState
 
 import numpy as np
 
-pub = None
 kinect_yaw = 0.0
 desired_head_angle = np.pi*30/180
+kinect_pitch = 0.0
+update_freq = 0.1
 
 def IMUcallback(data):
     # pulish here
@@ -19,19 +20,20 @@ def IMUcallback(data):
     psi = np.arctan2( 2*(q0*q3 + q1*q2) , 1 - 2*(q2**2+q3**2)) # rotation around Z-axis
     robot_pitch = theta
     robot_roll  =  psi
+
     if robot_roll < 0:
         robot_roll += np.pi
     else:
         robot_roll -= np.pi
-    # rospy.loginfo(rospy.get_name() + ": I heard %f" % robot_pitch)
 
-    global kinect_yaw
-    rospy.loginfo(rospy.get_name() + ": I heard %f" % robot_roll)
+    global kinect_yaw, kinect_pitch
+    # rospy.loginfo(rospy.get_name() + ": I heard %f" % robot_roll)
     kinect_pitch = - robot_pitch * np.cos(kinect_yaw) + robot_roll * np.sin(kinect_yaw)
 
-    if pub is not None:
-        global desired_head_angle
-        pub.publish(kinect_pitch - desired_head_angle)
+    # if pub is not None:
+    #     global desired_head_angle
+    #     pub.publish(kinect_pitch - desired_head_angle)
+        
 
 def kinectyawcallback(data):
     global kinect_yaw
@@ -43,8 +45,11 @@ def Initialize():
     rospy.Subscriber("/imu_data", Imu, IMUcallback)
     rospy.Subscriber("/sh_yaw_controller/state", JointState , kinectyawcallback)
 
-    global pub
     pub = rospy.Publisher('/sh_pitch_controller/command', Float64)
+    while not rospy.is_shutdown():
+        global desired_head_angle, kinect_pitch, update_freq
+        pub.publish(kinect_pitch - desired_head_angle)
+        rospy.sleep(update_freq)
 
     rospy.spin()
 
