@@ -1,0 +1,17 @@
+<package>
+  <description brief="control_node">
+
+     control_node
+
+  </description>
+  <author>MOSAIC</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/control_node</url>
+  <depend package="rospy"/>
+  <depend package="geometry_msgs"/>
+  <depend package="std_msgs"/>
+
+</package>
+
+
